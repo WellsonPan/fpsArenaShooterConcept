@@ -1,3 +1,3 @@
 # UnityPractice
-All of this is my friend Zorro's idea
-This is some kind of idea for an arena shooter
+<h>All of this is my friend Zorro's idea.</h>
+This is some kind of idea for an arena shooter.
