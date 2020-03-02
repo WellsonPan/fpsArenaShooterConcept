@@ -44,9 +44,10 @@ public class Fireball : MonoBehaviour
             Destroy(gameObject);
             collisionInfo.gameObject.GetComponent<Wall>().OnHit(directDamage);
         }
-        else if (collisionInfo.collider.tag == "Player")
+        else if (collisionInfo.collider.tag == "Enemy")
         {
-
+            Instantiate(blast, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
         else
         {
