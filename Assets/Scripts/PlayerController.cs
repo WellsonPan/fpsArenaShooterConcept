@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Vector3 velocity;
 
+    private float xRotation = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,34 +38,20 @@ public class PlayerController : MonoBehaviour
         CanJump();
         ApplyGravity();
         PlayerMovement();
-        CameraConstraintCheck(); //Work on this
         CameraMovement();
         Jump();
     }
 
     void CameraMovement()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("Mouse Y") * -1f, 0, 0);
-        Vector3 rotation = direction * turnSpeed * Time.deltaTime;
-        mainCamera.eulerAngles += rotation;
+        float mouseY = Input.GetAxis("Mouse Y") * turnSpeed * Time.deltaTime;
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        mainCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        Vector3 direction2 = new Vector3(0, Input.GetAxis("Mouse X"), 0);
-        Vector3 rotation2 = direction2 * turnSpeed * Time.deltaTime;
+        Vector3 direction = new Vector3(0, Input.GetAxis("Mouse X"), 0);
+        Vector3 rotation2 = direction * turnSpeed * Time.deltaTime;
         transform.eulerAngles += rotation2;
-    }
-
-    void CameraConstraintCheck()
-    {
-        if (mainCamera.eulerAngles.x > 70 && !(mainCamera.eulerAngles.x > 90))
-        {
-            mainCamera.eulerAngles = new Vector3(70f, mainCamera.eulerAngles.y, mainCamera.eulerAngles.z);
-        }
-
-        //Debug.Log(transform.eulerAngles.x);
-        if (mainCamera.eulerAngles.x < 290 && !(mainCamera.eulerAngles.x < 270))
-        {
-            mainCamera.eulerAngles = new Vector3(290f, mainCamera.eulerAngles.y, 0);
-        }
     }
 
     void PlayerMovement()
