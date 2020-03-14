@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
 
     public float sprintMultiplier;
     public float backPedal;
-    public float forwardBackwards;
+    private float forwardBackwards;
+    private float strafe;
+    public float airControl;
 
     public const float gravity = -9.81f;
     public CharacterController controller;
@@ -67,22 +69,31 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        forwardBackwards = Input.GetAxis("Vertical");
-
-        if(forwardBackwards < 0)
+        if (!rigidbody.useGravity)
         {
-            forwardBackwards *= backPedal;
-        }
-        else if(forwardBackwards > 0 && Input.GetKey(KeyCode.LeftShift))
-        {
-            forwardBackwards *= sprintMultiplier;
-        }
+            forwardBackwards = Input.GetAxis("Vertical");
 
-        Vector3 direction = Input.GetAxis("Horizontal") * transform.right + forwardBackwards * transform.forward;
-        Vector3 movement = direction * moveSpeed * Time.deltaTime;
-        //transform.Translate(movement);R
-        controller.Move(movement);
-        //GetComponent<Rigidbody>().MovePosition(movement);
+            if (forwardBackwards < 0)
+            {
+                forwardBackwards *= backPedal;
+            }
+            else if (forwardBackwards > 0 && Input.GetKey(KeyCode.LeftShift))
+            {
+                forwardBackwards *= sprintMultiplier;
+            }
+
+            Vector3 direction = Input.GetAxis("Horizontal") * transform.right + forwardBackwards * transform.forward;
+            Vector3 movement = direction * moveSpeed * Time.deltaTime;
+            controller.Move(movement);
+        }
+        else
+        {
+            strafe = Input.GetAxis("Horizontal");
+            Vector3 force = strafe * transform.right;
+            //Vector3 velocityEdited = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
+            Vector3 strafeMovement = force * moveSpeed * airControl *  Time.deltaTime + rigidbody.velocity;
+            rigidbody.velocity = strafeMovement;
+        }
     }
 
     void CanJump()
@@ -113,10 +124,10 @@ public class PlayerController : MonoBehaviour
     {
         if(isGrounded)
         {
+            controller.enabled = true;
             rigidbody.useGravity = false;
             rigidbody.detectCollisions = false;
             rigidbody.velocity = Vector3.zero;
-            controller.enabled = true;
         }
     }
 }

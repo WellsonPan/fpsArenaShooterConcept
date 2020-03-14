@@ -171,16 +171,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b434f1ce172dd064e82f821cba19e747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 7
   turnSpeed: 350
   arm: {fileID: 1153174813}
   mainCamera: {fileID: 963194228}
   jumpForce: 2
   sprintMultiplier: 1.5
   backPedal: 0.85
-  forwardBackwards: 0
-  controller: {fileID: 280280602}
-  rigidbody: {fileID: 280280603}
+  airControl: 1.3
+  controller: {fileID: 0}
+  rigidbody: {fileID: 0}
   groundCheck: {fileID: 1922809135}
   groundDistance: 0.4
   groundMask:
@@ -537,7 +537,7 @@ Transform:
   m_GameObject: {fileID: 1037436080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
