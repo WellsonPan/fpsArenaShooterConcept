@@ -44,6 +44,7 @@ public class Blast : MonoBehaviour
         if (collisionInfo.tag == "Player")
         {
             Vector3 closestPointOnPlayerToTheExplosion = collisionInfo.ClosestPoint(transform.position);
+            Rigidbody collisionBody = collisionInfo.GetComponent<Rigidbody>();
 
             //Get closest point on the player to the center of the explosion. Coincidentally also gives a direction from the center of the blast to the closest point on the player
             float distance = Vector3.Distance(transform.position, closestPointOnPlayerToTheExplosion);
@@ -56,6 +57,11 @@ public class Blast : MonoBehaviour
 
             //Apply damage
             collisionInfo.GetComponent<PlayerStats>().selfDamage(damage);
+            collisionInfo.GetComponent<CharacterController>().enabled = false;
+
+            collisionBody.detectCollisions = true;
+            collisionBody.AddForce((collisionInfo.transform.position - transform.position) * blastForce * Time.deltaTime * lerp, ForceMode.Impulse);
+            collisionBody.useGravity = true;
 
             Debug.Log(damage);
         }

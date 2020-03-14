@@ -109,4 +109,4 @@ MonoBehaviour:
   blastDamage: 35
   blastRadius: 4
   timeAlive: 0.065
-  blastForce: 100
+  blastForce: 500

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
@@ -10,8 +11,13 @@ public class PlayerController : MonoBehaviour
     public Transform mainCamera;
     public float jumpForce;
 
+    public float sprintMultiplier;
+    public float backPedal;
+    public float forwardBackwards;
+
     public const float gravity = -9.81f;
     public CharacterController controller;
+    public Rigidbody rigidbody;
 
     public Transform groundCheck;
     public float groundDistance;
@@ -19,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask environmentMask;
 
     private bool isGrounded;
-    private Vector3 velocity;
+    public Vector3 velocity;
 
     private float xRotation = 0f;
 
@@ -30,11 +36,16 @@ public class PlayerController : MonoBehaviour
         //Fix this stuff idiot
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        controller = GetComponent<CharacterController>();
+        rigidbody = GetComponent<Rigidbody>();
+        rigidbody.detectCollisions = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ReEnableController();
         CanJump();
         ApplyGravity();
         PlayerMovement();
@@ -56,10 +67,22 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        Vector3 direction = Input.GetAxis("Horizontal") * transform.right +  Input.GetAxis("Vertical") * transform.forward;
+        forwardBackwards = Input.GetAxis("Vertical");
+
+        if(forwardBackwards < 0)
+        {
+            forwardBackwards *= backPedal;
+        }
+        else if(forwardBackwards > 0 && Input.GetKey(KeyCode.LeftShift))
+        {
+            forwardBackwards *= sprintMultiplier;
+        }
+
+        Vector3 direction = Input.GetAxis("Horizontal") * transform.right + forwardBackwards * transform.forward;
         Vector3 movement = direction * moveSpeed * Time.deltaTime;
-        //transform.Translate(movement);
+        //transform.Translate(movement);R
         controller.Move(movement);
+        //GetComponent<Rigidbody>().MovePosition(movement);
     }
 
     void CanJump()
@@ -83,6 +106,17 @@ public class PlayerController : MonoBehaviour
         if(isGrounded && velocity.y < 0)
         {
             velocity.y = gravity;
+        }
+    }
+
+    void ReEnableController()
+    {
+        if(isGrounded)
+        {
+            rigidbody.useGravity = false;
+            rigidbody.detectCollisions = false;
+            rigidbody.velocity = Vector3.zero;
+            controller.enabled = true;
         }
     }
 }
