@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static event System.Action onCharDeath;
+
     public float playerHealth;
     public bool isDead; //This is for stuff later on the UI
     //TODO
@@ -32,6 +34,10 @@ public class PlayerStats : MonoBehaviour
         if (playerHealth <= 0)
         {
             isDead = true;
+            if(onCharDeath != null)
+            {
+                onCharDeath();
+            }
             Destroy(gameObject);
         }
     }

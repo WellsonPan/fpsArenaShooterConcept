@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightSpeed: 15
-  directDamage: 100
+  directDamage: 75
   timeAlive: 10
   blast: {fileID: 2425177062656232521, guid: 3134b394106fe9340a9ccd101dce2cb2, type: 3}
 --- !u!54 &770166565524078311

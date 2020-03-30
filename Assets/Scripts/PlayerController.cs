@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float turnSpeed;
     public Transform arm;
-    public Transform mainCamera;
+    public GameObject mainCamera;
     public float jumpForce;
 
     public float sprintMultiplier;
@@ -34,11 +34,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //These two should be in a UI class
-        //Fix this stuff idiot
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         controller = GetComponent<CharacterController>();
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.detectCollisions = false;
@@ -60,7 +55,7 @@ public class PlayerController : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * turnSpeed * Time.deltaTime;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        mainCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         Vector3 direction = new Vector3(0, Input.GetAxis("Mouse X"), 0);
         Vector3 rotation2 = direction * turnSpeed * Time.deltaTime;
@@ -129,5 +124,10 @@ public class PlayerController : MonoBehaviour
             rigidbody.detectCollisions = false;
             rigidbody.velocity = Vector3.zero;
         }
+    }
+
+    private void OnDestroy()
+    {
+        mainCamera.SetActive(false);
     }
 }
