@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SummonedWall
   - Land
+  - Grenade
   layers:
   - Default
   - TransparentFX

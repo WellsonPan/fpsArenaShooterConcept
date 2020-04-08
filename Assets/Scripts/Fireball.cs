@@ -17,6 +17,8 @@ public class Fireball : MonoBehaviour
     public Vector3 velocity;
     public bool isGrenade;
     public float friction;
+    public float wallFrictionCoefficient;
+    private float wallFriction;
 
     public Transform groundCheck;
     public float groundDistance;
@@ -34,6 +36,7 @@ public class Fireball : MonoBehaviour
         arm = GameObject.Find("PlayerArm");
         direction = arm.transform.forward;
         currentTime = Time.time;
+        wallFriction = friction * wallFrictionCoefficient;
         myRigidbody = GetComponent<Rigidbody>();
         if(isGrenade)
         {
@@ -72,18 +75,15 @@ public class Fireball : MonoBehaviour
     {
         if (collisionInfo.collider.tag == "SummonedWall" && !isGrenade)
         {
-            Instantiate(blast, transform.position, Quaternion.identity);
             Destroy(gameObject);
             collisionInfo.gameObject.GetComponent<Wall>().OnHit(directDamage);
         }
         else if (collisionInfo.collider.tag == "Enemy" && !isGrenade)
         {
-            Instantiate(blast, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         else if(!isGrenade)
         {
-            Instantiate(blast, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         else
@@ -93,11 +93,11 @@ public class Fireball : MonoBehaviour
             
             if (zDirAbs > xDirAbs && !isGrounded)
             {
-                direction = new Vector3(direction.x * friction * .6f, direction.y, direction.z * -friction * .6f);
+                direction = new Vector3(direction.x * wallFriction, direction.y, direction.z * -wallFriction);
             }
             else if (xDirAbs > zDirAbs && !isGrounded)
             {
-                direction = new Vector3(direction.x * -friction * .6f, direction.y, direction.z * friction * .6f);
+                direction = new Vector3(direction.x * -wallFriction * .6f, direction.y, direction.z * wallFriction);
             }
             else
             {
@@ -110,5 +110,10 @@ public class Fireball : MonoBehaviour
         //    Destroy(gameObject);
 
         //}
+    }
+
+    void OnDestroy()
+    {
+        Instantiate(blast, transform.position, Quaternion.identity);
     }
 }

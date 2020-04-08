@@ -39,6 +39,11 @@ public class Blast : MonoBehaviour
             //Debug.Log(collisionInfo.gameObject.GetComponent<Wall>().health);
         }
 
+        if(collisionInfo.tag == "Grenade")
+        {
+            Destroy(collisionInfo.gameObject);
+        }
+
         //For some reason it doesn't detect collision with the character controller even if another collider is attached to the object
         //But it does if a rigidbody is attached
         if (collisionInfo.tag == "Player")

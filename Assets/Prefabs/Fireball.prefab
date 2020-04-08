@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3462915604892920636}
   m_Layer: 0
   m_Name: Fireball
-  m_TagString: Untagged
+  m_TagString: Grenade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,11 +110,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flightSpeed: 15
   directDamage: 75
-  timeAlive: 10
+  timeAlive: 5
   blast: {fileID: 2425177062656232521, guid: 3134b394106fe9340a9ccd101dce2cb2, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   isGrenade: 1
-  friction: 0.9
+  friction: 0.95
+  wallFrictionCoefficient: 0.75
   groundCheck: {fileID: 5657494413769769126}
   groundDistance: 0.22
   myRigidbody: {fileID: 0}
