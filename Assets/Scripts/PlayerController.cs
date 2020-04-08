@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
         CameraMovement();
         Jump();
+        //Debug.Log(transform.forward);
     }
 
     void CameraMovement()
