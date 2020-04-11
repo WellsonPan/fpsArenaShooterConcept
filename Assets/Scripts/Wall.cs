@@ -26,6 +26,8 @@ public class Wall : MonoBehaviour
         //    transform.Translate(aboveGround * Time.deltaTime, Space.Self);
         //}
 
+        Debug.Log("Wall: " + health);
+
         if(health <= 0)
         {
             Destroy(gameObject);

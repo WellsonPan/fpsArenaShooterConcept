@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpawnWizard : MonoBehaviour
+public class SpawnPlayer : MonoBehaviour
 {
     public GameObject wizard;
     public GameObject topDownMainCam;

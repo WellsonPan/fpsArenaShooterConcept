@@ -14,7 +14,6 @@ public class Fireball : MonoBehaviour
 
     public const float gravity = -.1962f;
     private bool isGrounded;
-    public Vector3 velocity;
     public bool isGrenade;
     public float friction;
     public float wallFrictionCoefficient;
@@ -27,6 +26,7 @@ public class Fireball : MonoBehaviour
     public LayerMask groundMask;
 
     private GameObject arm;
+    private bool isQuitting;
 
     Vector3 direction;
 
@@ -57,13 +57,18 @@ public class Fireball : MonoBehaviour
             direction *= friction;
         }
 
-        transform.Translate(direction * flightSpeed * Time.deltaTime + velocity, Space.Self);
+        //transform.Translate(direction * flightSpeed * Time.deltaTime, Space.Self);
 
         if(Time.time > currentTime + timeAlive || (isGrounded && !isGrenade))
         {
             Instantiate(blast, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        transform.Translate(direction * flightSpeed * Time.fixedDeltaTime, Space.Self);
     }
 
     void isOnGround()
@@ -114,6 +119,14 @@ public class Fireball : MonoBehaviour
 
     void OnDestroy()
     {
-        Instantiate(blast, transform.position, Quaternion.identity);
+        if (!isQuitting)
+        {
+            Instantiate(blast, transform.position, Quaternion.identity);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
     }
 }

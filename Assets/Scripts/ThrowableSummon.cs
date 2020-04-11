@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireballSummon : MonoBehaviour
+public class ThrowableSummon : MonoBehaviour
 {
+    [Range(0, 1)]
+    public int chooseThrowable;
+
     public GameObject fireball;
+    public GameObject molotov;
     public GameObject arm;
     Vector3 spawnPos;
 
@@ -20,13 +24,20 @@ public class FireballSummon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnPos = new Vector3(arm.transform.position.x, arm.transform.position.y, arm.transform.position.z);// + (arm.transform.localScale.z / 2.0f));
         if (Input.GetMouseButtonDown(0))
         {
             if (Time.time > cooldownTime + fireRate)
             {
+                spawnPos = new Vector3(arm.transform.position.x, arm.transform.position.y, arm.transform.position.z);// + (arm.transform.localScale.z / 2.0f));
                 cooldownTime = Time.time;
-                Instantiate(fireball, spawnPos, Quaternion.identity);
+                if (chooseThrowable == 0)
+                {
+                    Instantiate(fireball, spawnPos, Quaternion.identity);
+                }
+                else if(chooseThrowable == 1)
+                {
+                    Instantiate(molotov, spawnPos, Quaternion.identity);
+                }
             }
         }
     }

@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 3924794805575496076}
   - component: {fileID: 3924794805575496075}
   m_Layer: 0
-  m_Name: Wizard MainCam
+  m_Name: Player MainCam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 3924794805992661733}
   - component: {fileID: 3924794805992661732}
   m_Layer: 0
-  m_Name: Wizard
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,8 +371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5897f5131af874f46b590be4460ed29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chooseThrowable: 1
   fireball: {fileID: 6545213517337663360, guid: 46d3a083bf0d47441bd4161a8db4a90e,
     type: 3}
+  molotov: {fileID: 678516234112382808, guid: 4228ae2a4350c2142a15fded433e3d9f, type: 3}
   arm: {fileID: 3924794805253902818}
   fireRate: 0.75
 --- !u!114 &3924794805992661728

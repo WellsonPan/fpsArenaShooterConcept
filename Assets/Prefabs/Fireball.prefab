@@ -94,7 +94,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.51
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1890569152213468504
 MonoBehaviour:
@@ -112,12 +112,11 @@ MonoBehaviour:
   directDamage: 75
   timeAlive: 5
   blast: {fileID: 2425177062656232521, guid: 3134b394106fe9340a9ccd101dce2cb2, type: 3}
-  velocity: {x: 0, y: 0, z: 0}
   isGrenade: 1
   friction: 0.95
   wallFrictionCoefficient: 0.75
   groundCheck: {fileID: 5657494413769769126}
-  groundDistance: 0.22
+  groundDistance: 0.25
   myRigidbody: {fileID: 0}
   groundMask:
     serializedVersion: 2

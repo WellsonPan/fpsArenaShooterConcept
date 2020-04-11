@@ -71,4 +71,12 @@ public class Blast : MonoBehaviour
             Debug.Log(damage);
         }
     }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if(pause)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
