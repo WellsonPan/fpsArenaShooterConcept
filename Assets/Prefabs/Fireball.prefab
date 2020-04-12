@@ -112,7 +112,7 @@ MonoBehaviour:
   directDamage: 75
   timeAlive: 5
   blast: {fileID: 2425177062656232521, guid: 3134b394106fe9340a9ccd101dce2cb2, type: 3}
-  isGrenade: 1
+  isGrenade: 0
   friction: 0.95
   wallFrictionCoefficient: 0.75
   groundCheck: {fileID: 5657494413769769126}

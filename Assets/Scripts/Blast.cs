@@ -65,10 +65,10 @@ public class Blast : MonoBehaviour
             collisionInfo.GetComponent<CharacterController>().enabled = false;
 
             collisionBody.detectCollisions = true;
-            collisionBody.AddForce((collisionInfo.transform.position - transform.position) * blastForce * Time.deltaTime * lerp, ForceMode.Impulse);
+            collisionBody.AddForce((collisionInfo.transform.position - transform.position).normalized * blastForce * Time.deltaTime * lerp, ForceMode.Impulse);
             collisionBody.useGravity = true;
 
-            Debug.Log(damage);
+            //Debug.Log(damage);
         }
     }
 

@@ -26,7 +26,7 @@ public class Wall : MonoBehaviour
         //    transform.Translate(aboveGround * Time.deltaTime, Space.Self);
         //}
 
-        Debug.Log("Wall: " + health);
+        //Debug.Log("Wall: " + health);
 
         if(health <= 0)
         {

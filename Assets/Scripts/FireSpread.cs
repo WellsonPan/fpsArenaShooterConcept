@@ -25,6 +25,8 @@ public class FireSpread : MonoBehaviour
     {
         if (transform.localScale.x < spreadSize)
         {
+            //Change this so that it just eventually spreads as a whole sphere, but use shaders to make it a flat circle on the ground
+            //Use particle system to create smoke and fire effects
             float spreadCalculation = spreadSpeed * Time.deltaTime;
             spreadCalculations = new Vector3(transform.localScale.x + spreadCalculation, transform.localScale.y, transform.localScale.z + spreadCalculation);
             transform.localScale = spreadCalculations;
@@ -46,6 +48,7 @@ public class FireSpread : MonoBehaviour
         if (collisionInfo.tag == "Player")
         {
             collisionInfo.GetComponent<PlayerStats>().selfDamage(initialDamage);
+            Debug.Log("initialDamage");
         }
     }
 
@@ -59,6 +62,7 @@ public class FireSpread : MonoBehaviour
         if (collisionInfo.tag == "Player")
         {
             collisionInfo.GetComponent<PlayerStats>().selfDamage(damageOverTime * Time.deltaTime);
+            Debug.Log("sustainDamage");
         }
     }
 
