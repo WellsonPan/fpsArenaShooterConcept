@@ -20,20 +20,23 @@ public class WallSummon : MonoBehaviour
         Ray ray = new Ray(transform.parent.position, transform.forward); //creates a ray from the object's position going towards whatever is forward for the object
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo, rayLength, mask, QueryTriggerInteraction.Ignore))
+        if (Input.GetMouseButtonDown(1))
         {
-            //print(hitInfo.collider.gameObject.name);
-            //Destroy(hitInfo.collider.gameObject);
-            if(Input.GetMouseButtonDown(1))
+            if (Physics.Raycast(ray, out hitInfo, rayLength, mask, QueryTriggerInteraction.Ignore))
             {
+                //print(hitInfo.collider.gameObject.name);
+                //Destroy(hitInfo.collider.gameObject);
+                //if(Input.GetMouseButtonDown(1))
+                //{
                 Destroy(GameObject.FindGameObjectWithTag("SummonedWall"));
                 Instantiate(wall, hitInfo.point, transform.parent.rotation);
+                //}
+                Debug.DrawLine(ray.origin, hitInfo.point, Color.green); //green means hit something
             }
-            Debug.DrawLine(ray.origin, hitInfo.point, Color.green); //green means hit something
-        }
-        else
-        {
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayLength, Color.red); //red means not hit something
+            else
+            {
+                Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayLength, Color.red); //red means not hit something
+            }
         }
     }
 }

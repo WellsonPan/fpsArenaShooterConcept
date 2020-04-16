@@ -68,12 +68,7 @@ public class Fireball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //transform.Translate(direction * flightSpeed * Time.fixedDeltaTime, Space.Self);
-    }
-
-    private void LateUpdate()
-    {
-        transform.Translate(direction * flightSpeed * Time.deltaTime, Space.Self);
+        transform.Translate(direction * flightSpeed * Time.fixedDeltaTime, Space.Self);
     }
 
     void isOnGround()

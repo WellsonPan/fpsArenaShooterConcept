@@ -24,6 +24,8 @@ public class ThrowableSummon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Change this to do a raycast check so that items don't fall throught the floor when aiming too close
+        //Use the raycast to set the item to move to the point instead of having the throwable auto move forward forever
         if (Input.GetMouseButtonDown(0))
         {
             if (Time.time > cooldownTime + fireRate)

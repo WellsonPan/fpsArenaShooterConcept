@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 3924794805575496077}
   - component: {fileID: 3924794805575496076}
   - component: {fileID: 3924794805575496075}
+  - component: {fileID: 4246515909949602402}
   m_Layer: 0
   m_Name: Player MainCam
   m_TagString: MainCamera
@@ -290,6 +291,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   wall: {fileID: 4177783520120281406, guid: 8a97ce62096c8f04f84a19958dadf3ed, type: 3}
+--- !u!114 &4246515909949602402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924794805575496079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5897f5131af874f46b590be4460ed29a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseThrowable: 0
+  fireball: {fileID: 6545213517337663360, guid: 46d3a083bf0d47441bd4161a8db4a90e,
+    type: 3}
+  molotov: {fileID: 678516234112382808, guid: 4228ae2a4350c2142a15fded433e3d9f, type: 3}
+  arm: {fileID: 3924794805253902818}
+  fireRate: 0.75
 --- !u!1 &3924794805992661737
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +319,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3924794805992661734}
   - component: {fileID: 3924794805992661735}
-  - component: {fileID: 3924794805992661731}
   - component: {fileID: 3924794805992661728}
   - component: {fileID: 3924794805992661733}
   - component: {fileID: 3924794805992661732}
@@ -341,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  turnSpeed: 350
+  turnSpeed: 200
   arm: {fileID: 3924794805253902819}
   mainCamera: {fileID: 3924794805575496079}
   jumpForce: 2
@@ -358,25 +376,9 @@ MonoBehaviour:
   environmentMask:
     serializedVersion: 2
     m_Bits: 512
+  canMultiJump: 1
+  timesCanMultiJump: 1
   velocity: {x: 0, y: 0, z: 0}
---- !u!114 &3924794805992661731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3924794805992661737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5897f5131af874f46b590be4460ed29a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chooseThrowable: 1
-  fireball: {fileID: 6545213517337663360, guid: 46d3a083bf0d47441bd4161a8db4a90e,
-    type: 3}
-  molotov: {fileID: 678516234112382808, guid: 4228ae2a4350c2142a15fded433e3d9f, type: 3}
-  arm: {fileID: 3924794805253902818}
-  fireRate: 0.75
 --- !u!114 &3924794805992661728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +408,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!143 &3924794805992661732
 CharacterController:
   m_ObjectHideFlags: 0
@@ -420,7 +422,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 30
   m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

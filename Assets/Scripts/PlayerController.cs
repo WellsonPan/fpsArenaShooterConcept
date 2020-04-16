@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
     public LayerMask environmentMask;
+    public bool canMultiJump;
+    public int timesCanMultiJump;
+    private int currentJump;
+    private bool canStillJump;
 
     private bool isGrounded;
     public Vector3 velocity;
@@ -37,12 +41,17 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.detectCollisions = false;
+        if(!canMultiJump)
+        {
+            timesCanMultiJump = 0;
+        }    
     }
 
     // Update is called once per frame
     void Update()
     {
         ReEnableController();
+        checkForJumpReset();
         CanJump();
         ApplyGravity();
         PlayerMovement();
@@ -95,13 +104,23 @@ public class PlayerController : MonoBehaviour
     void CanJump()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask | environmentMask);
+        canStillJump = currentJump < timesCanMultiJump;
+    }
+
+    void checkForJumpReset()
+    {
+        if(isGrounded)
+        {
+            currentJump = 0;
+        }
     }
 
     void Jump()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if(Input.GetKeyDown(KeyCode.Space) && (isGrounded || canStillJump))
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+            currentJump++;
         }
     }
 
