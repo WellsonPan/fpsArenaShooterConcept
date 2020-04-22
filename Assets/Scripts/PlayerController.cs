@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
     public LayerMask environmentMask;
+
     public bool canMultiJump;
     public int timesCanMultiJump;
     private int currentJump;
@@ -35,12 +36,25 @@ public class PlayerController : MonoBehaviour
 
     private float xRotation = 0f;
 
+    private float standingHeight;
+    private float crouchHeight;
+    private float crouchSpeed;
+    private float standingSpeed;
+    private Vector3 standingArmScale;
+    private Vector3 crouchingArmScale;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.detectCollisions = false;
+        standingHeight = transform.localScale.y;
+        crouchHeight = transform.localScale.y / 2f;
+        standingSpeed = moveSpeed;
+        crouchSpeed = moveSpeed / 2f;
+        standingArmScale = arm.localScale;
+        crouchingArmScale = new Vector3(arm.localScale.x, arm.localScale.y * 2f, arm.localScale.z);
         if(!canMultiJump)
         {
             timesCanMultiJump = 0;
@@ -56,6 +70,7 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         PlayerMovement();
         CameraMovement();
+        Crouch();
         Jump();
         //Debug.Log(transform.forward);
     }
@@ -98,6 +113,25 @@ public class PlayerController : MonoBehaviour
             //Vector3 velocityEdited = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
             Vector3 strafeMovement = force * moveSpeed * airControl *  Time.deltaTime + rigidbody.velocity;
             rigidbody.velocity = strafeMovement;
+        }
+    }
+
+    void Crouch()
+    {
+        if(isGrounded)
+        {
+            if(Input.GetKey(KeyCode.LeftControl))
+            {
+                transform.localScale = new Vector3(transform.localScale.x, crouchHeight, transform.localScale.z);
+                moveSpeed = crouchSpeed;
+                arm.localScale = crouchingArmScale;
+            }
+            else
+            {
+                transform.localScale = new Vector3(transform.localScale.x, standingHeight, transform.localScale.z);
+                moveSpeed = standingSpeed;
+                arm.localScale = standingArmScale;
+            }
         }
     }
 
