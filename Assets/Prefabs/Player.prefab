@@ -379,6 +379,7 @@ MonoBehaviour:
   canMultiJump: 1
   timesCanMultiJump: 1
   velocity: {x: 0, y: 0, z: 0}
+  slideTime: 1
 --- !u!114 &3924794805992661728
 MonoBehaviour:
   m_ObjectHideFlags: 0

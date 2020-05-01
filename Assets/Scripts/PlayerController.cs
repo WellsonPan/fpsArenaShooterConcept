@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
     public float turnSpeed;
+    private float turnSpeedVertical;
+    private float turnSpeedHorizontal;
     public Transform arm;
     public GameObject mainCamera;
     public float jumpForce;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded;
     public Vector3 velocity;
+    public float slideTime;
 
     private float xRotation = 0f;
 
@@ -42,6 +45,14 @@ public class PlayerController : MonoBehaviour
     private float standingSpeed;
     private Vector3 standingArmScale;
     private Vector3 crouchingArmScale;
+    private float slidingSpeed;
+    private float slidingTurnSpeed;
+
+    private bool isSprinting;
+    private bool isCrouching;
+    private bool isSliding;
+
+    private float currentTime;
 
     // Start is called before the first frame update
     void Start()
@@ -49,12 +60,15 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.detectCollisions = false;
+        turnSpeedVertical = turnSpeed;
+        turnSpeedHorizontal = turnSpeed;
         standingHeight = transform.localScale.y;
         crouchHeight = transform.localScale.y / 2f;
         standingSpeed = moveSpeed;
         crouchSpeed = moveSpeed / 2f;
         standingArmScale = arm.localScale;
         crouchingArmScale = new Vector3(arm.localScale.x, arm.localScale.y * 2f, arm.localScale.z);
+        slidingSpeed = moveSpeed * 3f;
         if(!canMultiJump)
         {
             timesCanMultiJump = 0;
@@ -71,19 +85,21 @@ public class PlayerController : MonoBehaviour
         PlayerMovement();
         CameraMovement();
         Crouch();
+        Slide();
+        StopSlide();
         Jump();
         //Debug.Log(transform.forward);
     }
 
     void CameraMovement()
     {
-        float mouseY = Input.GetAxis("Mouse Y") * turnSpeed * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * turnSpeedVertical * Time.deltaTime;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         Vector3 direction = new Vector3(0, Input.GetAxis("Mouse X"), 0);
-        Vector3 rotation2 = direction * turnSpeed * Time.deltaTime;
+        Vector3 rotation2 = direction * turnSpeedHorizontal * Time.deltaTime;
         transform.eulerAngles += rotation2;
     }
 
@@ -93,14 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             forwardBackwards = Input.GetAxis("Vertical");
 
-            if (forwardBackwards < 0)
-            {
-                forwardBackwards *= backPedal;
-            }
-            else if (forwardBackwards > 0 && Input.GetKey(KeyCode.LeftShift))
-            {
-                forwardBackwards *= sprintMultiplier;
-            }
+            Sprint();
 
             Vector3 direction = Input.GetAxis("Horizontal") * transform.right + forwardBackwards * transform.forward;
             Vector3 movement = direction * moveSpeed * Time.deltaTime;
@@ -116,21 +125,77 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Sprint()
+    {
+        if (forwardBackwards < 0)
+        {
+            isSprinting = false;
+            forwardBackwards *= backPedal;
+        }
+        else if (forwardBackwards > 0 && Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+        {
+            isSprinting = true;
+            forwardBackwards *= sprintMultiplier;
+        }
+        else
+        {
+            isSprinting = false;
+        }
+    }
+
     void Crouch()
     {
         if(isGrounded)
         {
             if(Input.GetKey(KeyCode.LeftControl))
             {
+                isCrouching = true;
                 transform.localScale = new Vector3(transform.localScale.x, crouchHeight, transform.localScale.z);
-                moveSpeed = crouchSpeed;
+                if (!isSliding)
+                {
+                    moveSpeed = crouchSpeed;
+                }
                 arm.localScale = crouchingArmScale;
             }
             else
             {
+                isCrouching = false;
                 transform.localScale = new Vector3(transform.localScale.x, standingHeight, transform.localScale.z);
                 moveSpeed = standingSpeed;
                 arm.localScale = standingArmScale;
+            }
+        }
+    }
+
+    void Slide()
+    {
+        if(isSprinting)
+        {
+            if(isCrouching && currentTime < slideTime + Time.time)
+            {
+                isSliding = true;
+                moveSpeed = slidingSpeed;
+                turnSpeedHorizontal = 0f;
+                currentTime = Time.time;
+            }
+        }
+    }
+
+    void StopSlide()
+    {
+        if(!isSliding || !isCrouching || Time.time > currentTime + slideTime)
+        {
+            isSliding = false;
+            turnSpeedHorizontal = turnSpeed;
+        }
+
+        if(isSliding && moveSpeed > crouchSpeed)
+        {
+            moveSpeed *= .9875f;
+            if (moveSpeed < crouchSpeed)
+            {
+                moveSpeed = crouchSpeed;
+                isSliding = false;
             }
         }
     }
