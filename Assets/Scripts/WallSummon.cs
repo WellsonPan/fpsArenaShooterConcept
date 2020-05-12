@@ -17,11 +17,11 @@ public class WallSummon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray ray = new Ray(transform.parent.position, transform.forward); //creates a ray from the object's position going towards whatever is forward for the object
-        RaycastHit hitInfo;
-
         if (Input.GetMouseButtonDown(1))
         {
+            Ray ray = new Ray(transform.parent.position, transform.forward); //creates a ray from the object's position going towards whatever is forward for the object
+            RaycastHit hitInfo;
+
             if (Physics.Raycast(ray, out hitInfo, rayLength, mask, QueryTriggerInteraction.Ignore))
             {
                 //print(hitInfo.collider.gameObject.name);

@@ -10,6 +10,7 @@ public class ThrowableSummon : MonoBehaviour
     public GameObject fireball;
     public GameObject molotov;
     public GameObject arm;
+
     Vector3 spawnPos;
 
     private float cooldownTime;
@@ -24,10 +25,9 @@ public class ThrowableSummon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Change this to do a raycast check so that items don't fall throught the floor when aiming too close
-        //Use the raycast to set the item to move to the point instead of having the throwable auto move forward forever
         if (Input.GetMouseButtonDown(0))
         {
+
             if (Time.time > cooldownTime + fireRate)
             {
                 spawnPos = new Vector3(arm.transform.position.x, arm.transform.position.y, arm.transform.position.z);// + (arm.transform.localScale.z / 2.0f));

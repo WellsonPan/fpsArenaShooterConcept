@@ -102,7 +102,7 @@ public class Fireball : MonoBehaviour
             }
             else if (xDirAbs > zDirAbs && !isGrounded)
             {
-                direction = new Vector3(direction.x * -wallFriction * .6f, direction.y, direction.z * wallFriction);
+                direction = new Vector3(direction.x * -wallFriction, direction.y, direction.z * wallFriction);
             }
             else
             {

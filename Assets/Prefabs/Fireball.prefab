@@ -114,7 +114,7 @@ MonoBehaviour:
   blast: {fileID: 2425177062656232521, guid: 3134b394106fe9340a9ccd101dce2cb2, type: 3}
   isGrenade: 1
   friction: 0.95
-  wallFrictionCoefficient: 0.75
+  wallFrictionCoefficient: 0.65
   groundCheck: {fileID: 5657494413769769126}
   groundDistance: 0.25
   myRigidbody: {fileID: 0}

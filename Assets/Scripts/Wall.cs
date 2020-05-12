@@ -37,7 +37,7 @@ public class Wall : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (transform.position.y <= ((transform.localScale.y / 2.0f) - (transform.localScale.y / 4.0f)))
+        if (transform.position.y <= ((transform.localScale.y / 2.0f)))// - (transform.localScale.y / 4.0f)))   //This last math part isn't required anymore because of the way I fixed the floor detection with two sets of grounds
         {
             transform.Translate(aboveGround * Time.deltaTime, Space.Self);
         }
