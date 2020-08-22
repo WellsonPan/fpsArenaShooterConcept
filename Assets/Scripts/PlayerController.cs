@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
+using System.Threading;
 using UnityEngine;
 
 //[RequireComponent(typeof(Rigidbody))]
@@ -54,6 +56,10 @@ public class PlayerController : MonoBehaviour
 
     private float currentTime;
 
+    private float count;
+    private Vector3 slideDirection = new Vector3();
+    private Vector3 slideMovement = new Vector3();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +78,8 @@ public class PlayerController : MonoBehaviour
         if(!canMultiJump)
         {
             timesCanMultiJump = 0;
-        }    
+        }
+        count = 0;
     }
 
     // Update is called once per frame
@@ -88,7 +95,7 @@ public class PlayerController : MonoBehaviour
         Slide();
         StopSlide();
         Jump();
-        //Debug.Log(transform.forward);
+        //Debug.Log(isSliding);
     }
 
     void CameraMovement()
@@ -105,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement()
     {
-        if (!rigidbody.useGravity)
+        if (!rigidbody.useGravity && !isSliding)
         {
             forwardBackwards = Input.GetAxis("Vertical");
 
@@ -174,8 +181,14 @@ public class PlayerController : MonoBehaviour
             if(isCrouching && currentTime < slideTime + Time.time)
             {
                 isSliding = true;
-                moveSpeed = slidingSpeed;
-                turnSpeedHorizontal = 0f;
+                if (count < 1)
+                {
+                    moveSpeed = slidingSpeed;
+                    slideDirection = transform.forward;
+                    count++;
+                }
+                slideMovement = slideDirection * moveSpeed * Time.deltaTime;
+                controller.Move(slideMovement);
                 currentTime = Time.time;
             }
         }
@@ -186,16 +199,18 @@ public class PlayerController : MonoBehaviour
         if(!isSliding || !isCrouching || Time.time > currentTime + slideTime)
         {
             isSliding = false;
-            turnSpeedHorizontal = turnSpeed;
+            count = 0;
         }
 
         if(isSliding && moveSpeed > crouchSpeed)
         {
             moveSpeed *= .9875f;
+            Debug.Log(moveSpeed);
             if (moveSpeed < crouchSpeed)
             {
                 moveSpeed = crouchSpeed;
                 isSliding = false;
+                count = 0;
             }
         }
     }

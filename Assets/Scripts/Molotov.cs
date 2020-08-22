@@ -10,6 +10,7 @@ public class Molotov : MonoBehaviour
     private Vector3 fireSpawnPos;
     private GameObject arm;
     private GameObject ground;
+    private GameObject fakeGround;
 
     public GameObject fireSpread;
 
@@ -21,7 +22,8 @@ public class Molotov : MonoBehaviour
     void Start()
     {
         arm = GameObject.Find("PlayerArm");
-        ground = GameObject.Find("Ground");
+        ground = GameObject.Find("Real Ground");
+        fakeGround = GameObject.Find("Visual Ground");
         direction = arm.transform.forward;
     }
 
@@ -45,7 +47,7 @@ public class Molotov : MonoBehaviour
     {
         if(!isQuitting)
         {
-            fireSpawnPos = new Vector3(transform.position.x, ground.transform.position.y, transform.position.z);
+            fireSpawnPos = new Vector3(transform.position.x, fakeGround.transform.position.y, transform.position.z);
             Instantiate(fireSpread, fireSpawnPos, Quaternion.identity);
         }
     }

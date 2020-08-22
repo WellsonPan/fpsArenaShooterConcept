@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class FireSpread : MonoBehaviour
@@ -17,7 +18,7 @@ public class FireSpread : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = Time.time;   
+        currentTime = Time.time;
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class FireSpread : MonoBehaviour
         if (collisionInfo.tag == "Player")
         {
             collisionInfo.GetComponent<PlayerStats>().selfDamage(initialDamage);
-            Debug.Log("initialDamage");
+            //Debug.Log("initialDamage");
         }
     }
 
@@ -62,7 +63,8 @@ public class FireSpread : MonoBehaviour
         if (collisionInfo.tag == "Player")
         {
             collisionInfo.GetComponent<PlayerStats>().selfDamage(damageOverTime * Time.deltaTime);
-            Debug.Log("sustainDamage");
+            Debug.Log(collisionInfo.GetComponent<PlayerStats>().playerHealth);
+            //Debug.Log("sustainDamage");
         }
     }
 

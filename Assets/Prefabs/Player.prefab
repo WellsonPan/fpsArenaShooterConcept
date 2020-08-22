@@ -85,10 +85,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 53cf88656a0ee4d4597970e5d5ef4743, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,6 +110,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3924794805253902818
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,10 +166,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 53cf88656a0ee4d4597970e5d5ef4743, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -188,6 +191,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3924794805575496079
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5897f5131af874f46b590be4460ed29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chooseThrowable: 0
+  chooseThrowable: 1
   fireball: {fileID: 6545213517337663360, guid: 46d3a083bf0d47441bd4161a8db4a90e,
     type: 3}
   molotov: {fileID: 678516234112382808, guid: 4228ae2a4350c2142a15fded433e3d9f, type: 3}
@@ -379,7 +383,7 @@ MonoBehaviour:
   canMultiJump: 1
   timesCanMultiJump: 1
   velocity: {x: 0, y: 0, z: 0}
-  slideTime: 1
+  slideTime: 5
 --- !u!114 &3924794805992661728
 MonoBehaviour:
   m_ObjectHideFlags: 0
