@@ -205,6 +205,8 @@ GameObject:
   - component: {fileID: 3924794805575496076}
   - component: {fileID: 3924794805575496075}
   - component: {fileID: 4246515909949602402}
+  - component: {fileID: 1947149290890501098}
+  - component: {fileID: 7972054961620153901}
   m_Layer: 0
   m_Name: Player MainCam
   m_TagString: MainCamera
@@ -313,6 +315,50 @@ MonoBehaviour:
   molotov: {fileID: 678516234112382808, guid: 4228ae2a4350c2142a15fded433e3d9f, type: 3}
   arm: {fileID: 3924794805253902818}
   fireRate: 0.75
+--- !u!114 &1947149290890501098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924794805575496079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+--- !u!114 &7972054961620153901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924794805575496079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c4fbc48275ae34282b7cb3520ec9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactiveDistance: 5
 --- !u!1 &3924794805992661737
 GameObject:
   m_ObjectHideFlags: 0

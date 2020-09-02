@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     public float slideTime;
 
     private float xRotation = 0f;
+    private float yRotation = 0f;
+    private float mouseX;
+    private float mouseY;
 
     private float standingHeight;
     private float crouchHeight;
@@ -100,14 +103,20 @@ public class PlayerController : MonoBehaviour
 
     void CameraMovement()
     {
-        float mouseY = Input.GetAxis("Mouse Y") * turnSpeedVertical * Time.deltaTime;
+        mouseY = Input.GetAxis("Mouse Y") * turnSpeedVertical * Time.fixedDeltaTime;
+        mouseX = Input.GetAxis("Mouse X") * turnSpeedHorizontal * Time.fixedDeltaTime;
+
+        yRotation += mouseX;
         xRotation -= mouseY;
+
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        Vector3 direction = new Vector3(0, Input.GetAxis("Mouse X"), 0);
-        Vector3 rotation2 = direction * turnSpeedHorizontal * Time.deltaTime;
-        transform.eulerAngles += rotation2;
+        //Vector3 direction = new Vector3(0, Input.GetAxis("Mouse X"), 0);
+        //Vector3 rotation2 = direction * turnSpeedHorizontal * Time.deltaTime;
+        //transform.eulerAngles += rotation2;
     }
 
     void PlayerMovement()
@@ -205,7 +214,7 @@ public class PlayerController : MonoBehaviour
         if(isSliding && moveSpeed > crouchSpeed)
         {
             moveSpeed *= .9875f;
-            Debug.Log(moveSpeed);
+            //Debug.Log(moveSpeed);
             if (moveSpeed < crouchSpeed)
             {
                 moveSpeed = crouchSpeed;
